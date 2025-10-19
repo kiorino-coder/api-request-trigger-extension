@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Hello World Extension",
+  "version": "0.0",
+  "description": "特定のページで「Hello, World」とアラートを表示します。",
+  "content_scripts": [
+    {
+      "matches": ["https://example.com/"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "128": "icons/ng_icon_128.ico"
+  }
+}
