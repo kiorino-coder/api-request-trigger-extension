@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Go Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <div>
+        <button id="requestButton">API (8081) を呼び出す</button>
+        <button id="request8082">Call 8082 /api/v2/end</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('requestButton').addEventListener('click', () => {
+            const url = 'http://localhost:8081/api/v1/hello?parameter=test';
+            
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = 'エラーが発生しました: ' + error.message;
+                    console.error('Fetch error:', error);
+                });
+        });
+
+        document.getElementById('request8082').addEventListener('click', () => {
+            const url = 'http://localhost:8082/api/v2/end';
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    document.getElementById('result').innerText = 'エラーが発生しました: ' + err.message;
+                    console.error('Fetch 8082 error:', err);
+                });
+        });
+    </script>
+</body>
+</html>

@@ -3,10 +3,26 @@
   "name": "Hello World Extension",
   "version": "0.0",
   "description": "特定のページで「Hello, World」とアラートを表示します。",
+  "permissions": [
+    "webRequest",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://localhost:8081/*",
+    "http://localhost:8080/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
-      "matches": ["https://example.com/"],
-      "js": ["content.js"]
+      "matches": [
+        "http://localhost:8080/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
     }
   ],
   "icons": {
